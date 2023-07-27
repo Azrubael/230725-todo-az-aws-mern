@@ -43,8 +43,6 @@ app.delete("/todos/:id", async (req, res) => {
 
 mongoose.set('strictQuery', false)
 
-const uri = `mongodb+srv://${ process.env.MONGODB_USERNAME }:${ process.env.MONGODB_PASSWORD }@cluster1.v7ucrvl.mongodb.net/?retryWrites=true&w=majority`
-
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -52,7 +50,7 @@ const options = {
 
 async function MongoDBService() {
     try {
-        await mongoose.connect(uri, options)
+        await mongoose.connect(process.env.MONGO_URI, options)
             .then(() => {
                 console.log("Connected to MongoDB")
                 app.listen(8000, () => {

@@ -2,22 +2,19 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const BACKEND_PATH = process.env.REACT_APP_BACKEND_PATH;
-console.log('path >>>', BACKEND_PATH)
+const BACKEND_PATH = process.env.BACKEND_PATH;
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
   const fetchTodos = async () => {
-    // const response = await axios.get("http://localhost:8000/todos");
     const response = await axios.get(`${BACKEND_PATH}`);
     setTodos(response.data.todos);
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
-    // const { data } = await axios.post("http://localhost:8000/todos", {
     const { data } = await axios.post(`${BACKEND_PATH}`, {
       name: newTodo,
     });
@@ -35,7 +32,6 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    // await axios.delete(`http://localhost:8000/todos/${id}`);
     await axios.delete(`${BACKEND_PATH}/${id}`);
 
     const updatedTodos = todos.filter((todos) => todos._id !== id);
@@ -44,7 +40,6 @@ function App() {
   };
 
   const handleToggle = async (id) => {
-    // await axios.put(`http://localhost:8000/todos/${id}`);
     await axios.put(`${BACKEND_PATH}/${id}`);
 
     const updatedTodos = todos.map((todo) => {
